@@ -1,0 +1,179 @@
+/* Main page */
+.loginpage {
+  min-height: 89vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 16px;
+  background-color: #082a50;
+  font-family: Arial, sans-serif;
+}
+
+.logincontainer {
+  width: 100%;
+  max-width: 420px;
+}
+
+.loginform {
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.loginform h2 {
+  color: #082a50;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.loginsubtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+.formgroup {
+  margin-bottom: 20px;
+}
+
+.formgroup label,
+.passwordheading label {
+  display: block;
+  color: #082a50;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.formgroup input,
+.passwordinput input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #082a50;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.formgroup input:focus,
+.passwordinput input:focus {
+  border-color: #ff7900;
+  box-shadow: 0 0 0 3px rgba(255, 121, 0, 0.15);
+}
+
+/* Password field */
+.passwordheading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.passwordheading label {
+  margin-bottom: 0;
+}
+
+.textbutton,
+.showbutton {
+  border: none;
+  background: transparent;
+  color: #ff7900;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.textbutton:hover,
+.registerlink:hover {
+  text-decoration: underline;
+}
+
+.passwordinput {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.passwordinput input {
+  padding-right: 65px;
+}
+
+.showbutton {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Sign-in button */
+.loginbutton {
+  width: 100%;
+  padding: 14px;
+  background-color: #ff7900;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.loginbutton:hover {
+  background-color: #e66d00;
+  transform: translateY(-1px);
+}
+
+.loginbutton:active {
+  transform: translateY(0);
+}
+
+/* Messages and registration */
+.loginmessage {
+  margin-top: 16px;
+  text-align: center;
+  color: #082a50;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.registertext {
+  margin-top: 24px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.registerlink {
+  color: #e66d00;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Footer */
+.loginfooter {
+  text-align: center;
+  color: #cbd5e1;
+  font-size: 12px;
+  margin-top: 24px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .loginheader h1 {
+    font-size: 29px;
+  }
+
+  .loginform {
+    padding: 24px 20px;
+  }
+
+  .loginform h2 {
+    font-size: 23px;
+  }
+}

@@ -1,0 +1,325 @@
+.mockRating {
+  width: 100%;
+  padding: 10px;
+  color: #082a50;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.pageHeader h2 {
+  margin: 0;
+  font-size: 26px;
+  color: #082a50;
+}
+
+.pageHeader p {
+  margin: 7px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.refreshBtn {
+  background: #082a50;
+  color: white;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.refreshBtn:hover {
+  background: #104477;
+}
+
+.filterSection {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.searchStudents {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid #dce2e9;
+  border-radius: 7px;
+  padding: 0 13px;
+}
+
+.searchStudents input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.searchStudents span {
+  font-size: 23px;
+  color: #777;
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 22px;
+  margin-top: 20px;
+  align-items: start;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e1e6ed;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 3px 10px rgba(8, 42, 80, 0.07);
+  transition: 0.2s ease;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(8, 42, 80, 0.13);
+}
+
+.studentInfoAndAddMock {
+  display: flex;
+  justify-content: space-between;
+  gap: 7px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e8edf2;
+}
+.addMockRatingButton {
+  background: #ff7900;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.addMockRatingButton:hover {
+  background: #e66d00;
+  transform: translateY(-2px);
+}
+
+.studentid {
+  color: #ff7900;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.studentName {
+  color: #082a50;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.mockInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 15px;
+}
+
+.mockInfo > div {
+  display: flex;
+  align-items: center;
+  padding: 11px 13px;
+  border-radius: 7px;
+}
+.mockRatingSection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 15px;
+  box-sizing: border-box;
+  background: #f4f7fa;
+  border-radius: 8px;
+}
+
+.mockRatingSection > div:first-child {
+  align-self: flex-start;
+  padding: 10px;
+  display: flex;
+  gap: 30px;
+}
+
+.actionbuttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.updateButton,
+.removeButton {
+  border: none;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.updateButton {
+  background: #082a50;
+  color: white;
+}
+
+.removeButton {
+  background: #ffe8e8;
+  color: #d32f2f;
+}
+
+.mockInfo span:first-child {
+  color: #082a50;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mockInfo span:last-child {
+  color: #ff7900;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mockInfo p {
+  height: 100%;
+  color: #8995a3;
+  font-size: 14px;
+  text-align: center;
+  padding: 12px;
+}
+
+.loadingMessage,
+.filterErrorMessage {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 35px;
+  color: #082a50;
+}
+
+@media (max-width: 600px) {
+  .cardContainer {
+    grid-template-columns: 1fr;
+  }
+  .studentInfo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal {
+  width: 90%;
+  max-width: 450px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  color: #082a50;
+  margin-bottom: 20px;
+}
+
+.selectedStudent {
+  background: #f4f7fa;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.selectedStudent p {
+  color: #082a50;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.formGroup label {
+  color: #082a50;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.formGroup input {
+  padding: 12px;
+  border: 1px solid #dce2e8;
+  border-radius: 7px;
+  outline: none;
+  font-size: 14px;
+}
+
+.formGroup input:focus {
+  border-color: #ff7900;
+}
+
+.formButtons {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.submitButton,
+.cancelButton {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.submitButton {
+  background: #082a50;
+  color: white;
+}
+
+.cancelButton {
+  background: #e8edf2;
+  color: #082a50;
+}
+
+.submitButton:hover {
+  background: #ff7900;
+}

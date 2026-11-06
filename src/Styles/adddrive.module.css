@@ -1,0 +1,168 @@
+.drivePage {
+  width: 100%;
+  padding: 10px;
+  background: #f5f7fa;
+  box-sizing: border-box;
+}
+
+.backButton {
+  margin: 20px;
+}
+.backButton button {
+  width: 100px;
+  padding: 10px;
+  background-color: #ff7900;
+  border: none;
+  border-radius: 10px;
+  color: #082a50;
+}
+.backButton img {
+  height: 14px;
+  position: relative;
+  top: 3px;
+}
+
+.driveForm {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(8, 42, 80, 0.08);
+}
+
+.formHeader {
+  margin-bottom: 30px;
+}
+
+.formHeader h2 {
+  color: #082a50;
+  font-size: 26px;
+  margin: 0 0 8px;
+}
+
+.formHeader p {
+  color: #777;
+  font-size: 14px;
+  margin: 0;
+}
+
+.formSectionTitle {
+  color: #082a50;
+  font-size: 18px;
+  margin: 30px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ff7900;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.driveField {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 20px;
+}
+
+.driveField label {
+  color: #082a50;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.driveField input,
+.driveField textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #d5dce5;
+  border-radius: 7px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #333;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.driveField input:focus,
+.driveField textarea:focus {
+  border-color: #ff7900;
+  box-shadow: 0 0 0 3px rgba(255, 121, 0, 0.12);
+}
+
+.driveField textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.driveField small {
+  color: #777;
+  font-size: 12px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.submitBtn,
+.resetBtn {
+  padding: 12px 25px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.submitBtn {
+  background: #ff7900;
+  color: #fff;
+}
+
+.submitBtn:hover {
+  background: #e66d00;
+}
+
+.resetBtn {
+  background: #e9edf2;
+  color: #082a50;
+}
+
+.resetBtn:hover {
+  background: #dce2e9;
+}
+
+@media (max-width: 650px) {
+  .drivePage {
+    padding: 15px;
+  }
+
+  .driveForm {
+    padding: 22px 17px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .formHeader h2 {
+    font-size: 22px;
+  }
+
+  .formActions {
+    flex-direction: column-reverse;
+  }
+
+  .submitBtn,
+  .resetBtn {
+    width: 100%;
+  }
+}

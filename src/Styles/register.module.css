@@ -1,0 +1,202 @@
+.registerPage {
+  min-height: 100vh;
+  padding: 35px 16px;
+  background-color: #082a50;
+  font-family: Arial, sans-serif;
+}
+
+.registerContainer {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.registerForm {
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.registerForm h2 {
+  color: #082a50;
+  font-size: 27px;
+  margin-bottom: 8px;
+  background: transparent;
+}
+
+.registerSubtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 25px;
+  background: transparent;
+}
+
+.formSectionTitle {
+  color: #082a50;
+  font-size: 17px;
+  margin: 26px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ff7900;
+  background: transparent;
+}
+
+.registerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 5fr));
+  gap: 18px 20px;
+  background: transparent;
+}
+
+.registerField {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: transparent;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.registerField label {
+  color: #082a50;
+  font-size: 14px;
+  font-weight: 600;
+  background: transparent;
+}
+
+.registerField input,
+.registerField select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #082a50;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.registerField input::placeholder {
+  color: #94a3b8;
+}
+
+.registerField input:focus,
+.registerField select:focus {
+  border-color: #ff7900;
+  box-shadow: 0 0 0 3px rgba(255, 121, 0, 0.15);
+}
+
+.registerPassword {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+.registerPassword input {
+  padding-right: 60px;
+}
+
+.registerPassword button {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background: transparent;
+  color: #e66d00;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.registerMessage {
+  margin-top: 20px;
+  text-align: center;
+  color: #166534;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+  background: transparent;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.registerSubmit {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff7900;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.registerSubmit:hover {
+  background-color: #e66d00;
+  transform: translateY(-1px);
+}
+
+.registerLogin {
+  margin-top: 22px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+  background: transparent;
+}
+
+.registerLogin a {
+  color: #e66d00;
+  font-weight: 700;
+  text-decoration: none;
+  background: transparent;
+}
+
+.registerLogin a:hover {
+  text-decoration: underline;
+}
+
+.registerFooter {
+  margin-top: 24px;
+  text-align: center;
+  color: #d7e0eb;
+  font-size: 12px;
+  background: transparent;
+}
+
+@media (max-width: 600px) {
+  .registerPage {
+    padding: 25px 12px;
+  }
+
+  .registerHeader h1 {
+    font-size: 28px;
+  }
+
+  .registerForm {
+    padding: 24px 18px;
+  }
+
+  .registerForm h2 {
+    font-size: 23px;
+  }
+
+  .registerGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .fullWidth {
+    grid-column: auto;
+  }
+}
