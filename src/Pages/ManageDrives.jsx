@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../Styles/managedrives.module.css";
+import axiosInstance from "../Api/axiosInstance";
 
-const API_URL = "http://localhost:8080/admin/dashboard/managedrives";
+// const API_URL = "http://localhost:8080/admin/dashboard/managedrives";
 
 const ManageDrives = () => {
   const [drives, setDrives] = useState([]);
@@ -13,7 +14,7 @@ const ManageDrives = () => {
 
   const fetchDrives = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axiosInstance.get("/api/drives");
       setDrives(response.data);
     } catch (error) {
       console.error(error);
@@ -39,7 +40,7 @@ const ManageDrives = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`${API_URL}/deletedrive/${id}`);
+      await axios.delete(`/api/drives/delete/${id}`);
 
       setDrives((prev) => prev.filter((drive) => drive.id !== id));
 

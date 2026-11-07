@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import backArrow from "../assets/image.png";
+import axiosInstance from "../Api/axiosInstance";
 
 const AddDrive = () => {
   const [form, setForm] = useState({
@@ -46,17 +47,21 @@ const AddDrive = () => {
 
     try {
       if (isEditMode) {
-        await axios.put(
-          `http://localhost:8080/admin/dashboard/managedrives/updatedrive/${id}`,
-          jobData,
-        );
+        // await axios.put(
+        //   `http://localhost:8080/admin/dashboard/managedrives/updatedrive/${id}`,
+        //   jobData,
+        // );
+
+        await axiosInstance.put(`/api/drives/update/${id}`, jobData);
 
         toast.success("Drive updated successfully!");
       } else {
-        await axios.post(
-          "http://localhost:8080/admin/dashboard/managedrives/adddrive",
-          jobData,
-        );
+        // await axios.post(
+        //   "http://localhost:8080/admin/dashboard/managedrives/adddrive",
+        //   jobData,
+        // );
+
+        await axiosInstance.post("/api/drives/add");
 
         toast.success("Drive added successfully!");
       }
@@ -68,14 +73,10 @@ const AddDrive = () => {
     }
   };
 
-  const handleUpdate = (id) => {
-    navigate(`/admin/dashboard/managedrives/updatedrive/${id}`);
-  };
-
   useEffect(() => {
     if (id) {
-      axios
-        .get(`http://localhost:8080/admin/dashboard/managedrives/${id}`)
+      axiosInstance
+        .get(`/api/drives/${id}`)
         .then((response) => {
           const drive = response.data;
 

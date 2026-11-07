@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../Styles/manageStudents.module.css";
 
-const API_URL = "http://localhost:8080/admin/managestudents";
+// const API_URL = "http://localhost:8080/admin/managestudents";
 
 const ManageStudents = () => {
   const [students, setStudents] = useState([]);
@@ -43,7 +43,7 @@ const ManageStudents = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get("/api/admin/managestudents");
       setStudents(response.data);
     } catch (error) {
       console.error(error);
@@ -84,7 +84,7 @@ const ManageStudents = () => {
 
   const handleVerify = async (id) => {
     try {
-      await axios.put(`${API_URL}/verify/${id}`);
+      await axios.put(`/api/admin/managestudents/verify/${id}`);
 
       setStudents((prev) =>
         prev.map((student) =>
@@ -107,7 +107,7 @@ const ManageStudents = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`${API_URL}/delete/${id}`);
+      await axios.delete(`/api/admin/managestudents/delete/${id}`);
 
       setStudents((prev) => prev.filter((student) => student.id !== id));
 

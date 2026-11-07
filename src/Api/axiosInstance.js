@@ -1,7 +1,8 @@
 import axios from "axios";
 
-let axiosInstance = axios.create({
-  baseURL: "http://localhost:5173/",
+
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.API_BASE_URL,
 });
 
 export default axiosInstance;

@@ -2,8 +2,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../Styles/applicationrequests.module.css";
+import axiosInstance from "../Api/axiosInstance";
 
-const API_URL = "http://localhost:8080/api/applications";
+// const API_URL = "http://localhost:8080/api/applications";
 
 // Change these values if your Java enums use different constants.
 const FORWARDING_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
@@ -32,7 +33,7 @@ const ApplicationsRequests = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get(API_URL);
+      const response = await axiosInstance.get(`/api/applications`);
 
       setApplications(response.data);
 
@@ -114,8 +115,8 @@ const ApplicationsRequests = () => {
     if (!draft) return;
 
     try {
-      const response = await axios.put(
-        `${API_URL}/${application.id}/status`,
+      const response = await axiosInstance.put(
+        `/api/applications/${application.id}/status`,
         null,
         {
           params: {
@@ -146,7 +147,7 @@ const ApplicationsRequests = () => {
   const handleApprove = async (application) => {
     try {
       const response = await axios.put(
-        `${API_URL}/${application.id}/status`,
+        `/api/applications/${application.id}/status`,
         null,
         {
           params: {
@@ -179,7 +180,7 @@ const ApplicationsRequests = () => {
   const handleReject = async (application) => {
     try {
       const response = await axios.put(
-        `${API_URL}/${application.id}/status`,
+        `/api/applications/${application.id}/status`,
         null,
         {
           params: {

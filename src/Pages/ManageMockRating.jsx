@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../Styles/managemockrating.module.css";
+import axiosInstance from "../Api/axiosInstance";
 
 const ManageMockRating = () => {
   const [search, setSearch] = useState("");
@@ -25,7 +26,7 @@ const ManageMockRating = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/student");
+      const response = await axiosInstance.get("/api/student");
       setStudents(response.data);
     } catch (error) {
       console.error(error);
@@ -44,18 +45,15 @@ const ManageMockRating = () => {
 
     try {
       if (selectedMock) {
-        await axios.put(
-          `http://localhost:8080/api/mockrating/${selectedMock.id}`,
-          {
-            technology,
-            rating: Number(rating),
-          },
-        );
+        await axiosInstance.put(`api/mockrating/update/${selectedMock.id}`, {
+          technology,
+          rating: Number(rating),
+        });
 
         toast.success("Mock Rating Updated Successfully");
       } else {
         await axios.post(
-          `http://localhost:8080/api/mockrating/student/${selectedStudent.id}`,
+          `http://localhost:8080/api/mockrating/add/${selectedStudent.id}`,
           {
             technology,
             rating: Number(rating),
@@ -87,7 +85,7 @@ const ManageMockRating = () => {
   };
   const handleRemoveMockRating = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/mockrating/${id}`);
+      await axiosInstance.delete(`/api/mockrating/${id}`);
 
       toast.success("Mock Rating Deleted Successfully");
       fetchStudents();
