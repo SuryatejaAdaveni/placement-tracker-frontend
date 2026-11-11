@@ -43,12 +43,6 @@
   color: #ff7900;
 }
 
-.navButtons {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .dashboardBtn {
   padding: 11px 17px;
   border-radius: 7px;
@@ -76,6 +70,32 @@
 .loginBtn:hover {
   background: #fff;
   color: #e66e00;
+}
+
+.navButtons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.logoutBtn {
+  background-color: #ff7900;
+  color: white;
+  border: 1px solid #ff7900;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #e66d00;
+  border-color: #e66d00;
+}
+
+.logoutBtn:active {
+  transform: scale(0.96);
 }
 
 @media (max-width: 900px) {

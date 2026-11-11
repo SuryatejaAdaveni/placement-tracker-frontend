@@ -40,16 +40,18 @@ const ManageDrives = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`/api/drives/delete/${id}`);
+      await axiosInstance.delete(`/api/drives/delete/${id}`);
 
       setDrives((prev) => prev.filter((drive) => drive.id !== id));
 
       toast.success("Placement drive removed successfully");
+      fetchDrives();
     } catch (error) {
       console.error(error);
       toast.error("Failed to remove placement drive");
     }
   };
+  
 
   return (
     <div className={style.manageDrives}>
@@ -80,7 +82,7 @@ const ManageDrives = () => {
 
           <div className={style.driveGrid}>
             {drives.map((drive) => (
-              <div className={style.driveCard} key={drive.id}>
+              <div className={style.driveCard} key={drive.jobId}>
                 <div className={style.cardHeader}>
                   <div>
                     <h3>{drive.companyName}</h3>
@@ -114,14 +116,14 @@ const ManageDrives = () => {
                   <div className={style.driveActions}>
                     <button
                       className={style.updateBtn}
-                      onClick={() => handleUpdate(drive.id)}
+                      onClick={() => handleUpdate(drive.jobId)}
                     >
                       Update Drive
                     </button>
 
                     <button
                       className={style.removeBtn}
-                      onClick={() => handleDelete(drive.id)}
+                      onClick={() => handleDelete(drive.jobId)}
                     >
                       Remove Drive
                     </button>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "../Styles/register.module.css";
 import Logobar from "../Components/Logobar";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     fullName: "",
     phone: "",
@@ -11,18 +13,7 @@ const Register = () => {
     country: "",
     state: "",
     district: "",
-    collegeName: "",
-    course: "",
-    location: "",
-    branch: "",
-    backlogs: "",
-    cgpa: "",
-    passoutYear: "",
-    twelfthPercentage: "",
-    tenthPercentage: "",
     password: "",
-    confirmPassword: "",
-    role: "student",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +33,7 @@ const Register = () => {
     setIsError(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
@@ -56,26 +47,28 @@ const Register = () => {
       setIsError(true);
       return;
     }
-
-    setMessage("Form validated! Connect your backend API to register.");
-    setIsError(false);
-
     console.log(form);
-    // Send form data to your backend API here.
+
+    navigate("/register/academicdetails", {
+      state: {
+        personalDetails: form,
+      },
+    });
   };
 
   return (
     <>
       <Logobar />
+
       <div className={style.registerPage}>
         <div className={style.registerContainer}>
-          <form className={style.registerForm} onSubmit={handleSubmit}>
+          <form className={style.registerForm} onSubmit={handleNext}>
             <h2>Create Account</h2>
+
             <p className={style.registerSubtitle}>
-              Enter your personal and academic details
+              Step 1 of 2 - Personal Details
             </p>
 
-            {/* Personal Details */}
             <h3 className={style.formSectionTitle}>Personal Details</h3>
 
             <div className={style.registerGrid}>
@@ -130,7 +123,6 @@ const Register = () => {
                   value={form.country}
                   onChange={handleChange}
                   placeholder="Enter country"
-                  autoComplete="country-name"
                   required
                 />
               </div>
@@ -143,7 +135,6 @@ const Register = () => {
                   value={form.state}
                   onChange={handleChange}
                   placeholder="Enter state"
-                  autoComplete="address-level1"
                   required
                 />
               </div>
@@ -159,158 +150,10 @@ const Register = () => {
                   required
                 />
               </div>
-            </div>
 
-            {/* Academic Details */}
-            <h3 className={style.formSectionTitle}>Academic Details</h3>
-
-            <div className={style.registerGrid}>
-              <div className={`${style.registerField} ${style.fullWidth}`}>
-                <label htmlFor="collegeName">College Name *</label>
-                <input
-                  id="collegeName"
-                  name="collegeName"
-                  value={form.collegeName}
-                  onChange={handleChange}
-                  placeholder="Enter college or university name"
-                  required
-                />
-              </div>
-
-              <div className={`${style.registerField}`}>
-                <label htmlFor="course">Course *</label>
-                <select
-                  id="course"
-                  name="course"
-                  value={form.course}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select course</option>
-                  <option value="B.Tech">B.Tech</option>
-                  <option value="B.E.">B.E.</option>
-                  <option value="B.Sc.">B.Sc.</option>
-                  <option value="BCA">BCA</option>
-                  <option value="B.Com">B.Com</option>
-                  <option value="M.Tech">M.Tech</option>
-                  <option value="MCA">MCA</option>
-                  <option value="MBA">MBA</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div className={style.registerField}>
-                <label htmlFor="location">Location *</label>
-                <input
-                  id="location"
-                  name="location"
-                  value={form.location}
-                  onChange={handleChange}
-                  placeholder="Andhra Pradesh"
-                  required
-                />
-              </div>
-
-              <div className={style.registerField}>
-                <label htmlFor="backlogs">Backlogs *</label>
-                <input
-                  id="backlogs"
-                  name="backlogs"
-                  value={form.backlogs}
-                  onChange={handleChange}
-                  placeholder="e.g. 0"
-                  required
-                />
-              </div>
-
-              <div className={style.registerField}>
-                <label htmlFor="branch">Branch *</label>
-                <input
-                  id="branch"
-                  name="branch"
-                  value={form.branch}
-                  onChange={handleChange}
-                  placeholder="e.g. CSE"
-                  required
-                />
-              </div>
-
-              <div className={style.registerField}>
-                <label htmlFor="cgpa">CGPA *</label>
-                <input
-                  id="cgpa"
-                  name="cgpa"
-                  type="number"
-                  min="0"
-                  max="10"
-                  step="0.01"
-                  value={form.cgpa}
-                  onChange={handleChange}
-                  placeholder="e.g. 8.25"
-                  required
-                />
-              </div>
-
-              <div className={style.registerField}>
-                <label htmlFor="passoutYear">Passout Year *</label>
-                <select
-                  id="passoutYear"
-                  name="passoutYear"
-                  value={form.passoutYear}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select year</option>
-                  {Array.from(
-                    { length: 8 },
-                    (_, i) => new Date().getFullYear() + i - 2,
-                  ).map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className={style.registerField}>
-                <label htmlFor="twelfthPercentage">12th Percentage *</label>
-                <input
-                  id="twelfthPercentage"
-                  name="twelfthPercentage"
-                  type="number"
-                  min="0"
-                  max="100"
-                  step="0.01"
-                  value={form.twelfthPercentage}
-                  onChange={handleChange}
-                  placeholder="e.g. 85"
-                  required
-                />
-              </div>
-
-              <div className={style.registerField}>
-                <label htmlFor="tenthPercentage">10th Percentage *</label>
-                <input
-                  id="tenthPercentage"
-                  name="tenthPercentage"
-                  type="number"
-                  min="0"
-                  max="100"
-                  step="0.01"
-                  value={form.tenthPercentage}
-                  onChange={handleChange}
-                  placeholder="e.g. 90"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Account Details */}
-            <h3 className={style.formSectionTitle}>Account Details</h3>
-
-            <div className={style.registerGrid}>
               <div className={style.registerField}>
                 <label htmlFor="password">Password *</label>
+
                 <div className={style.registerPassword}>
                   <input
                     id="password"
@@ -323,6 +166,7 @@ const Register = () => {
                     minLength={8}
                     required
                   />
+
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -334,6 +178,7 @@ const Register = () => {
 
               <div className={style.registerField}>
                 <label htmlFor="confirmPassword">Confirm Password *</label>
+
                 <div className={style.registerPassword}>
                   <input
                     id="confirmPassword"
@@ -346,6 +191,7 @@ const Register = () => {
                     minLength={8}
                     required
                   />
+
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -354,20 +200,6 @@ const Register = () => {
                   </button>
                 </div>
               </div>
-
-              <div className={`${style.registerField} ${style.fullWidth}`}>
-                <label htmlFor="role">Role *</label>
-                <select
-                  id="role"
-                  name="role"
-                  value={form.role}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="student">Student</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
             </div>
 
             {message && (
@@ -375,14 +207,14 @@ const Register = () => {
                 className={`${style.registerMessage} ${
                   isError ? style.error : ""
                 }`}
-                role="status"
+                role="alert"
               >
                 {message}
               </p>
             )}
 
             <button type="submit" className={style.registerSubmit}>
-              <Link to="/">Next</Link>
+              Next
             </button>
 
             <p className={style.registerLogin}>

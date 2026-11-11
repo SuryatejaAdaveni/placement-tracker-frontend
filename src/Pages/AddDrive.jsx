@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "../Styles/adddrive.module.css";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import backArrow from "../assets/image.png";
 import axiosInstance from "../Api/axiosInstance";
@@ -29,6 +28,7 @@ const AddDrive = () => {
       [name]: value,
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,21 +47,15 @@ const AddDrive = () => {
 
     try {
       if (isEditMode) {
-        // await axios.put(
-        //   `http://localhost:8080/admin/dashboard/managedrives/updatedrive/${id}`,
-        //   jobData,
-        // );
+        
 
         await axiosInstance.put(`/api/drives/update/${id}`, jobData);
 
         toast.success("Drive updated successfully!");
       } else {
-        // await axios.post(
-        //   "http://localhost:8080/admin/dashboard/managedrives/adddrive",
-        //   jobData,
-        // );
+        
 
-        await axiosInstance.post("/api/drives/add");
+        await axiosInstance.post("/api/drives/add", jobData);
 
         toast.success("Drive added successfully!");
       }

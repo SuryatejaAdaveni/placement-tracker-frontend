@@ -1,18 +1,59 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "../Styles/login.module.css";
 import Logobar from "../Components/Logobar";
+import axiosInstance from "../Api/axiosInstance";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
-    setMessage(`Signing in as ${email}...`);
+    try {
+      setLoading(true);
+      setMessage("");
+      const response = await axiosInstance.post("/api/login", form);
+      const user = response.data;
+      sessionStorage.setItem("studentId", user.studentId);
+      sessionStorage.setItem("name", user.name);
+      sessionStorage.setItem("email", user.email);
+      sessionStorage.setItem("role", user.role);
+      toast.success("Login Successfull!");
+      if (user.role === "ADMIN") {
+        navigate("/admin/dashboard");
+      } else if (user.role === "STUDENT") {
+        navigate("/student/dashboard");
+      } else {
+        setMessage("Invalid user role");
+        sessionStorage.clear();
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+
+      setMessage(error.response?.data || "Invalid email or password");
+
+      toast.error("Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -28,10 +69,11 @@ const Login = () => {
               <label htmlFor="email">Email</label>
               <input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={form.email}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -52,10 +94,11 @@ const Login = () => {
             <div className={style.passwordinput}>
               <input
                 id="password"
+                name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={form.password}
+                onChange={handleChange}
                 required
               />
 
@@ -69,7 +112,7 @@ const Login = () => {
             </div>
 
             <button type="submit" className={style.loginbutton}>
-              Sign In
+              {loading ? "Signing in..." : "Sign In"}
             </button>
 
             {message && <p className={style.loginmessage}>{message}</p>}

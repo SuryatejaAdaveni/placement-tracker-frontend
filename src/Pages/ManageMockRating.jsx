@@ -26,7 +26,7 @@ const ManageMockRating = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axiosInstance.get("/api/student");
+      const response = await axiosInstance.get("/api/students");
       setStudents(response.data);
     } catch (error) {
       console.error(error);
@@ -45,15 +45,15 @@ const ManageMockRating = () => {
 
     try {
       if (selectedMock) {
-        await axiosInstance.put(`api/mockrating/update/${selectedMock.id}`, {
+        await axiosInstance.put(`/api/mockrating/student/${selectedMock.id}`, {
           technology,
           rating: Number(rating),
         });
 
         toast.success("Mock Rating Updated Successfully");
       } else {
-        await axios.post(
-          `http://localhost:8080/api/mockrating/add/${selectedStudent.id}`,
+        await axiosInstance.post(
+          `/api/mockrating/add/${selectedStudent.studentId}`,
           {
             technology,
             rating: Number(rating),

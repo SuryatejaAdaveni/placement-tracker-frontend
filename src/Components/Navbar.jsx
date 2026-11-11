@@ -1,69 +1,51 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import style from "../Styles/navbar.module.css";
+import { toast } from "react-toastify";
 
-function Navbar({ role, isAuthenticated }) {
+function Navbar({ role }) {
   const navigate = useNavigate();
+
+  const isAuthenticated = !!sessionStorage.getItem("studentId");
 
   // Role-based paths
   const homePath = "/home";
 
-  // const dashboardPath =
-  //   role === "admin" ? "/admin/dashboard" : "/student/dashboard";
+  const dashboardPath =
+    role === "admin" ? "/admin/dashboard" : "/student/dashboard";
 
-  // const notificationPath =
-  //   role === "admin" ? "/admin/notifications" : "/student/notifications";
+  const notificationPath =
+    role === "admin"
+      ? "/admin/notifications"
+      : "/student/dashboard/notifications";
 
-  // const profilePath = role === "admin" ? "/admin/profile" : "/student/profile";
+  const profilePath =
+    role === "admin" ? "/admin/profile" : "/student/dashboard/profile";
 
-  // Student
-
-  // const dashboardPath = "/student/dashboard";
-
-  const notificationPath = "/student/dashboard/notifications";
-
-  const profilePath = "/student/dashboard/profile";
-
-  // admin
-
-  const dashboardPath = "/admin/dashboard";
-
-  // const notificationPath = "/admin/dasboard/notifications";
-
-  // const profilePath = "/admin/profile";
-
-  // Navigation links
   const links = [
-    {
-      name: "Home",
-      path: homePath,
-    },
-    {
-      name: "Dashboard",
-      path: dashboardPath,
-    },
-    {
-      name: "Notifications",
-      path: notificationPath,
-    },
+    { name: "Home", path: homePath },
+    ...(isAuthenticated
+      ? [
+          { name: "Dashboard", path: dashboardPath },
+          { name: "Notifications", path: notificationPath },
+        ]
+      : []),
   ];
 
-  // Logout
   const handleLogout = () => {
+    sessionStorage.clear();
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
+    toast.success("Logged Out Successfully");
     navigate("/login");
   };
 
   return (
     <nav className={style.navbar}>
-      {/* Logo */}
       <Link to={homePath} className={style.logo}>
         Placement<span>Tracker</span>
       </Link>
 
-      {/* Main Navigation */}
       <div className={style.navLinks}>
         {links.map((link) => (
           <NavLink
@@ -78,19 +60,9 @@ function Navbar({ role, isAuthenticated }) {
         ))}
       </div>
 
-      {/* Profile and Authentication */}
       <div className={style.navButtons}>
         {isAuthenticated ? (
           <>
-            <NavLink
-              to={profilePath}
-              className={({ isActive }) =>
-                isActive ? style.activeLink : style.profileLink
-              }
-            >
-              Profile
-            </NavLink>
-
             <button
               type="button"
               className={style.logoutBtn}

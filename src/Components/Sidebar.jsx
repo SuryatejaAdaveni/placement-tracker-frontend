@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ role }) => {
+  
+
   const isAdmin = role === "admin";
 
   const basePath = isAdmin ? "/admindashboard" : "/studentdashboard";

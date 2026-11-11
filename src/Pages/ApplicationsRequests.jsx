@@ -4,17 +4,14 @@ import { toast } from "react-toastify";
 import style from "../Styles/applicationrequests.module.css";
 import axiosInstance from "../Api/axiosInstance";
 
-// const API_URL = "http://localhost:8080/api/applications";
+const APPLICATION_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
 
-// Change these values if your Java enums use different constants.
-const FORWARDING_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
-
-const APPLICATION_STATUSES = [
+const FORWARDING_STATUSES = [
   "APPLIED",
-  "SHORTLISTED",
-  "REJECTED",
-  "SELECTED",
   "CONTACTED_BY_EMAIL",
+  "SHORTLISTED",
+  "SELECTED",
+  "REJECTED",
 ];
 
 const ApplicationsRequests = () => {
@@ -40,7 +37,7 @@ const ApplicationsRequests = () => {
       const drafts = {};
 
       response.data.forEach((application) => {
-        drafts[application.id] = {
+        drafts[application.applicationId] = {
           applicationStatus: application.applicationStatus,
           forwardingStatus: application.forwardingStatus,
         };
@@ -98,11 +95,11 @@ const ApplicationsRequests = () => {
   ).length;
 
   // Update draft status
-  const handleStatusChange = (id, field, value) => {
+  const handleStatusChange = (applicationId, field, value) => {
     setStatusDrafts((prev) => ({
       ...prev,
-      [id]: {
-        ...prev[id],
+      [applicationId]: {
+        ...prev[applicationId],
         [field]: value,
       },
     }));
@@ -110,13 +107,13 @@ const ApplicationsRequests = () => {
 
   // Update application status in backend
   const handleUpdateStatus = async (application) => {
-    const draft = statusDrafts[application.id];
+    const draft = statusDrafts[application.applicationId];
 
     if (!draft) return;
 
     try {
       const response = await axiosInstance.put(
-        `/api/applications/${application.id}/status`,
+        `/api/applications/${application.applicationId}/status`,
         null,
         {
           params: {
@@ -127,12 +124,16 @@ const ApplicationsRequests = () => {
       );
 
       setApplications((prev) =>
-        prev.map((item) => (item.id === application.id ? response.data : item)),
+        prev.map((item) =>
+          item.applicationId === application.applicationId
+            ? response.data
+            : item,
+        ),
       );
 
       toast.success("Application status updated successfully");
 
-      if (selectedApplication?.id === application.id) {
+      if (selectedApplication?.applicationId === application.applicationId) {
         setSelectedApplication(response.data);
       }
     } catch (error) {
@@ -146,26 +147,30 @@ const ApplicationsRequests = () => {
   // Quick approve
   const handleApprove = async (application) => {
     try {
-      const response = await axios.put(
-        `/api/applications/${application.id}/status`,
+      const response = await axiosInstance.put(
+        `/api/applications/${application.applicationId}/status`,
         null,
         {
           params: {
-            applicationStatus: application.applicationStatus,
-            forwardingStatus: "APPROVED",
+            forwardingStatus: application.applicationStatus,
+            applicationStatus: "APPROVED",
           },
         },
       );
 
       setApplications((prev) =>
-        prev.map((item) => (item.id === application.id ? response.data : item)),
+        prev.map((item) =>
+          item.applicationId === application.applicationId
+            ? response.data
+            : item,
+        ),
       );
 
       setStatusDrafts((prev) => ({
         ...prev,
-        [application.id]: {
-          ...prev[application.id],
-          forwardingStatus: "APPROVED",
+        [application.applicationId]: {
+          ...prev[application.applicationId],
+          applicationStatus: "APPROVED",
         },
       }));
 
@@ -179,26 +184,30 @@ const ApplicationsRequests = () => {
   // Quick reject
   const handleReject = async (application) => {
     try {
-      const response = await axios.put(
-        `/api/applications/${application.id}/status`,
+      const response = await axiosInstance.put(
+        `/api/applications/${application.applicationId}/status`,
         null,
         {
           params: {
-            applicationStatus: application.applicationStatus,
-            forwardingStatus: "REJECTED",
+            forwardingStatus: application.forwardingStatus,
+            applicationStatus: "REJECTED",
           },
         },
       );
 
       setApplications((prev) =>
-        prev.map((item) => (item.id === application.id ? response.data : item)),
+        prev.map((item) =>
+          item.applicationId === application.applicationId
+            ? response.data
+            : item,
+        ),
       );
 
       setStatusDrafts((prev) => ({
         ...prev,
-        [application.id]: {
-          ...prev[application.id],
-          forwardingStatus: "REJECTED",
+        [application.applicationId]: {
+          ...prev[application.applicationId],
+          applicationStatus: "REJECTED",
         },
       }));
 
@@ -231,7 +240,6 @@ const ApplicationsRequests = () => {
 
   return (
     <div className={style.applicationrequests}>
-      {/* Page Header */}
       <div className={style.pageheader}>
         <div>
           <h2>Application Requests</h2>
@@ -243,7 +251,6 @@ const ApplicationsRequests = () => {
         </button>
       </div>
 
-      {/* Statistics */}
       <div className={style.statsgrid}>
         <div className={style.statCard}>
           <div className={style.statIcon}>▤</div>
@@ -270,7 +277,6 @@ const ApplicationsRequests = () => {
         </div>
       </div>
 
-      {/* Search and Filters */}
       <div className={style.filterSection}>
         <div className={style.searchBox}>
           <span>⌕</span>
@@ -311,7 +317,6 @@ const ApplicationsRequests = () => {
         </select>
       </div>
 
-      {/* Applications Table */}
       <div className={style.tableContainer}>
         {loading ? (
           <p className={style.message}>Loading applications...</p>
@@ -337,13 +342,13 @@ const ApplicationsRequests = () => {
 
             <tbody>
               {filteredApplications.map((application) => {
-                const draft = statusDrafts[application.id] || {
+                const draft = statusDrafts[application.applicationId] || {
                   applicationStatus: application.applicationStatus,
                   forwardingStatus: application.forwardingStatus,
                 };
 
                 return (
-                  <tr key={application.id}>
+                  <tr key={application.applicationId}>
                     <td>
                       <strong className={style.applicationId}>
                         {application.applicationId}
@@ -406,24 +411,6 @@ const ApplicationsRequests = () => {
                         >
                           View
                         </button>
-
-                        {application.forwardingStatus === "PENDING" && (
-                          <>
-                            <button
-                              className={style.approveBtn}
-                              onClick={() => handleApprove(application)}
-                            >
-                              Approve
-                            </button>
-
-                            <button
-                              className={style.rejectBtn}
-                              onClick={() => handleReject(application)}
-                            >
-                              Reject
-                            </button>
-                          </>
-                        )}
                       </div>
                     </td>
                   </tr>
@@ -439,7 +426,6 @@ const ApplicationsRequests = () => {
         applications
       </p>
 
-      {/* Application Details Modal */}
       {selectedApplication && (
         <div
           className={style.modalOverlay}
@@ -461,22 +447,25 @@ const ApplicationsRequests = () => {
               <div className={style.detailsGrid}>
                 <div>
                   <span>Student Name</span>
-                  <strong>{selectedApplication.studentName}</strong>
+                  <strong>{selectedApplication.student.name}</strong>
                 </div>
 
                 <div>
                   <span>Student ID</span>
-                  <strong>{selectedApplication.studentId}</strong>
+                  <strong>{selectedApplication.student.studentId}</strong>
                 </div>
 
                 <div>
                   <span>Email</span>
-                  <strong>{selectedApplication.studentEmail}</strong>
+                  <strong>{selectedApplication.student.email}</strong>
                 </div>
 
                 <div>
                   <span>Branch</span>
-                  <strong>{selectedApplication.studentBranch || "-"}</strong>
+                  <strong>
+                    {selectedApplication.student.studentAcademicDetails
+                      .branch || "-"}
+                  </strong>
                 </div>
               </div>
 
@@ -485,17 +474,17 @@ const ApplicationsRequests = () => {
               <div className={style.detailsGrid}>
                 <div>
                   <span>Company</span>
-                  <strong>{selectedApplication.companyName}</strong>
+                  <strong>{selectedApplication.job.companyName}</strong>
                 </div>
 
                 <div>
                   <span>Job Role</span>
-                  <strong>{selectedApplication.jobRole}</strong>
+                  <strong>{selectedApplication.job.jobRole}</strong>
                 </div>
 
                 <div>
                   <span>Job ID</span>
-                  <strong>{selectedApplication.jobCode}</strong>
+                  <strong>{selectedApplication.job.jobId}</strong>
                 </div>
 
                 <div>
@@ -508,6 +497,20 @@ const ApplicationsRequests = () => {
                 </div>
               </div>
 
+              <h4>Mock Ratings</h4>
+              <div className={style.detailsGrid}>
+                {selectedApplication.student.mockRating?.length > 0 ? (
+                  selectedApplication.student.mockRating.map((mock, index) => (
+                    <div key={index}>
+                      <span>{mock.technology}</span>
+                      <strong>{mock.rating}</strong>
+                    </div>
+                  ))
+                ) : (
+                  <p>No mock ratings available</p>
+                )}
+              </div>
+
               <h4>Update Application Status</h4>
 
               <div className={style.statusForm}>
@@ -515,12 +518,13 @@ const ApplicationsRequests = () => {
 
                 <select
                   value={
-                    statusDrafts[selectedApplication.id]?.applicationStatus ||
+                    statusDrafts[selectedApplication.applicationId]
+                      ?.applicationStatus ||
                     selectedApplication.applicationStatus
                   }
                   onChange={(e) =>
                     handleStatusChange(
-                      selectedApplication.id,
+                      selectedApplication.applicationId,
                       "applicationStatus",
                       e.target.value,
                     )
@@ -537,12 +541,12 @@ const ApplicationsRequests = () => {
 
                 <select
                   value={
-                    statusDrafts[selectedApplication.id]?.forwardingStatus ||
-                    selectedApplication.forwardingStatus
+                    statusDrafts[selectedApplication.applicationId]
+                      ?.forwardingStatus || selectedApplication.forwardingStatus
                   }
                   onChange={(e) =>
                     handleStatusChange(
-                      selectedApplication.id,
+                      selectedApplication.applicationId,
                       "forwardingStatus",
                       e.target.value,
                     )

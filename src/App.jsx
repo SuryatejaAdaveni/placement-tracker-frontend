@@ -6,7 +6,7 @@ import StudentLayout from "./Layouts/StudentLayout";
 import AdminLayout from "./Layouts/AdminLayout";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-import AcademicRegister from "./Pages/AcademicRegister";
+import AcademicDetails from "./Pages/AcademicDetails";
 import MyApplications from "./Pages/MyApplications";
 import Reports from "./Pages/Reports";
 import Drives from "./Pages/Drives";
@@ -17,6 +17,8 @@ import ManageMockRating from "./Pages/ManageMockRating";
 import ManageDrives from "./Pages/ManageDrives";
 import Notifications from "./Pages/Notifications";
 import AddDrive from "./Pages/AddDrive";
+import ProtectedRoute from "./Layouts/ProtectedRoute";
+import DriveDetails from "./Pages/DriveDetails";
 
 function App() {
   return (
@@ -32,14 +34,22 @@ function App() {
 
           <Route
             path="/register/academicdetails"
-            element={<AcademicRegister />}
+            element={<AcademicDetails />}
           />
 
           {/* Student Routes */}
-          <Route path="/student/dashboard" element={<StudentLayout />}>
+          <Route
+            path="/student/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["STUDENT"]}>
+                <StudentLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route path="myapplications" element={<MyApplications />} />
 
             <Route path="drives" element={<Drives />} />
+            <Route path="drives/drivedetails/:id" element={<DriveDetails />} />
 
             <Route path="profile" element={<Profile />} />
             <Route path="reports" element={<Reports />} />
@@ -47,7 +57,14 @@ function App() {
           </Route>
 
           {/* Admin Routes */}
-          <Route path="/admin/dashboard" element={<AdminLayout />}>
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["ADMIN"]}>
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route
               path="applicationsrequests"
               element={<ApplicationsRequests />}
@@ -60,7 +77,7 @@ function App() {
             <Route path="managedrives/adddrive" element={<AddDrive />} />
             <Route path="managedrives/updatedrive/:id" element={<AddDrive />} />
           </Route>
-          
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

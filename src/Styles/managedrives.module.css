@@ -46,9 +46,9 @@
 
 .driveGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  /* grid-template-columns: repeat(3, minmax(0, 2fr)); */
-  /* grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); */
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  /* grid-template-columns: repeat(2, minmax(0, 3fr)); */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
 }
 
@@ -157,6 +157,12 @@
 
 .updateBtn:hover {
   background: #104477;
+}
+.updateBtn:disabled {
+  background-color: #777;
+  border-color: #777;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 .removeBtn {

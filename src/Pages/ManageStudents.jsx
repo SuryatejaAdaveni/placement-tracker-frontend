@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../Styles/manageStudents.module.css";
+import axiosInstance from "../Api/axiosInstance";
 
 // const API_URL = "http://localhost:8080/admin/managestudents";
 
@@ -43,7 +44,7 @@ const ManageStudents = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get("/api/admin/managestudents");
+      const response = await axiosInstance.get("/api/admin/managestudents");
       setStudents(response.data);
     } catch (error) {
       console.error(error);
@@ -55,6 +56,7 @@ const ManageStudents = () => {
 
   useEffect(() => {
     fetchStudents();
+    console.log(students);
   }, []);
 
   const branches = [
@@ -84,7 +86,7 @@ const ManageStudents = () => {
 
   const handleVerify = async (id) => {
     try {
-      await axios.put(`/api/admin/managestudents/verify/${id}`);
+      await axiosInstance.put(`/api/admin/managestudents/verify/${id}`);
 
       setStudents((prev) =>
         prev.map((student) =>
@@ -93,6 +95,7 @@ const ManageStudents = () => {
       );
 
       toast.success("Student verified successfully");
+      fetchStudents();
     } catch (error) {
       console.error(error);
       toast.error("Unable to verify student");
@@ -107,7 +110,7 @@ const ManageStudents = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`/api/admin/managestudents/delete/${id}`);
+      await axiosInstance.delete(`/api/admin/managestudents/delete/${id}`);
 
       setStudents((prev) => prev.filter((student) => student.id !== id));
 
@@ -229,7 +232,7 @@ const ManageStudents = () => {
 
             <tbody>
               {filteredStudents.map((student) => (
-                <tr key={student.id}>
+                <tr key={student.studentId}>
                   <td>
                     <div className={style.studentInfo}>
                       <div className={style.avatar}>
@@ -267,7 +270,7 @@ const ManageStudents = () => {
                       {!student.verified && (
                         <button
                           className={style.verifyBtn}
-                          onClick={() => handleVerify(student.id)}
+                          onClick={() => handleVerify(student.studentId)}
                         >
                           Verify
                         </button>
