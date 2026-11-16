@@ -25,7 +25,6 @@ const ApplicationsRequests = () => {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [statusDrafts, setStatusDrafts] = useState({});
 
-  // Fetch applications
   const fetchApplications = async () => {
     try {
       setLoading(true);
@@ -50,7 +49,6 @@ const ApplicationsRequests = () => {
     } finally {
       setLoading(false);
     }
-    console.log(applications);
   };
 
   useEffect(() => {
@@ -64,10 +62,10 @@ const ApplicationsRequests = () => {
 
       const matchesSearch =
         application.applicationId?.toLowerCase().includes(searchValue) ||
-        application.studentName?.toLowerCase().includes(searchValue) ||
-        application.studentEmail?.toLowerCase().includes(searchValue) ||
-        application.jobCode?.toLowerCase().includes(searchValue) ||
-        application.companyName?.toLowerCase().includes(searchValue);
+        application.student.name?.toLowerCase().includes(searchValue) ||
+        application.student.email?.toLowerCase().includes(searchValue) ||
+        application.job.jobId?.toLowerCase().includes(searchValue) ||
+        application.job.companyName?.toLowerCase().includes(searchValue);
 
       const matchesApplicationStatus =
         applicationFilter === "All" ||
@@ -87,11 +85,11 @@ const ApplicationsRequests = () => {
   const totalApplications = applications.length;
 
   const pendingApplications = applications.filter(
-    (application) => application.forwardingStatus === "PENDING",
+    (application) => application.applicationStatus === "PENDING",
   ).length;
 
   const approvedApplications = applications.filter(
-    (application) => application.forwardingStatus === "APPROVED",
+    (application) => application.applicationStatus === "APPROVED",
   ).length;
 
   // Update draft status
@@ -498,6 +496,7 @@ const ApplicationsRequests = () => {
               </div>
 
               <h4>Mock Ratings</h4>
+
               <div className={style.detailsGrid}>
                 {selectedApplication.student.mockRating?.length > 0 ? (
                   selectedApplication.student.mockRating.map((mock, index) => (
@@ -537,7 +536,7 @@ const ApplicationsRequests = () => {
                   ))}
                 </select>
 
-                <label>Forwarding Status</label>
+                <label>Interview Progess</label>
 
                 <select
                   value={

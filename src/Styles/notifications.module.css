@@ -1,0 +1,145 @@
+
+.notificationPage {
+  min-height: 100vh;
+  padding: 30px;
+  background: #F4F7FB;
+}
+
+/* Page Header */
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pageHeader h2 {
+  color: #0B2D50;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pageHeader p {
+  color: #FF8000;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Notification List */
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.titlewithcross{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Individual Notification */
+.notification {
+  background: #FFFFFF;
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  border-left: 5px solid #D1D9E3;
+  box-shadow: 0 3px 10px rgba(11, 45, 80, 0.05);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.notification:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(11, 45, 80, 0.10);
+}
+
+/* Unread Notification */
+.unread {
+  background: #FFF9F2;
+  border-left: 5px solid #FF8000;
+}
+
+.notification h3 {
+  color: #0B2D50;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.notification p {
+  color: #526477;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.notification span {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+  background: #EDF1F6;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+/* Unread Status */
+.unread span {
+  color: #D96500;
+  background: #FFE7CC;
+}
+
+/* Empty State */
+.emptyState {
+  background: #FFFFFF;
+  padding: 60px 20px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(11, 45, 80, 0.05);
+}
+
+.emptyState h3 {
+  color: #0B2D50;
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.emptyState p {
+  color: #64748B;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .notificationPage {
+    padding: 20px 15px;
+  }
+
+  .pageHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .notification {
+    padding: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader h2 {
+    font-size: 22px;
+  }
+
+  .notification h3 {
+    font-size: 15px;
+  }
+
+  .notification p {
+    font-size: 13px;
+  }
+}

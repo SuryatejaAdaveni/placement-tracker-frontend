@@ -15,7 +15,7 @@ const StudentDrives = () => {
   const fetchApplications = async () => {
     try {
       const response = await axiosInstance.get(
-        `api/applications/student/${sessionStorage.getItem("studentId")}`,
+        `/api/applications/student/${sessionStorage.getItem("studentId")}`,
       );
       setApplications(response.data);
     } catch (err) {
@@ -71,7 +71,7 @@ const StudentDrives = () => {
   };
 
   const showDriveDetails = (id) => {
-    navigate(`/admin/dashboard/managedrives/updatedrive/${id}`);
+    navigate(`/student/dashboard/drives/drivedetails/${id}`);
   };
 
   return (

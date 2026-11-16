@@ -26,6 +26,7 @@ const AcademicDetails = () => {
   const [resume, setResume] = useState(null);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const [profilePic, setProfilePic] = useState(null);
 
   // Prevent opening academic page without personal details
   if (!personalDetails) {
@@ -95,10 +96,10 @@ const AcademicDetails = () => {
     );
 
     formData.append("resume", resume);
+    formData.append("profilePic", profilePic);
 
     setIsError(false);
 
-    // Send registrationData to your backend API here.
 
     try {
       await axiosInstance.post("/api/register", formData);
@@ -269,6 +270,19 @@ const AcademicDetails = () => {
                   placeholder="e.g. 90"
                   required
                 />
+              </div>
+              <div className={`${style.registerField} ${style.fullWidth}`}>
+                <label htmlFor="profilePic">Upload Profile Picture</label>
+
+                <input
+                  id="profilePic"
+                  name="profilePic"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setProfilePic(e.target.files[0] || null)}
+                />
+
+                {profilePic && <p>Selected file: {profilePic.name}</p>}
               </div>
               <div className={`${style.registerField} ${style.fullWidth}`}>
                 <label htmlFor="resume">Upload Resume (PDF) *</label>

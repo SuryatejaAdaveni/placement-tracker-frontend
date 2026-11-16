@@ -24,6 +24,11 @@ function AdminSidebar() {
       path: "/admin/dashboard/applicationsrequests",
       icon: "📋",
     },
+    {
+      name: "Notifications",
+      path: "/admin/dashboard/Notifications",
+      icon: "📋",
+    },
   ];
 
   return (

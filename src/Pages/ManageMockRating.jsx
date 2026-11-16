@@ -134,7 +134,8 @@ const ManageMockRating = () => {
             <p>There are No students Matching your search or filters</p>
           </div>
         ) : (
-          filteredStudents.map((student) => (
+          filteredStudents.map((student) => 
+            (
             <div className={style.card} key={student.studentId}>
               <div className={style.studentInfoAndAddMock}>
                 <div className={style.studentInfo}>

@@ -46,6 +46,7 @@ function App() {
               </ProtectedRoute>
             }
           >
+            <Route index element={<MyApplications />} />
             <Route path="myapplications" element={<MyApplications />} />
 
             <Route path="drives" element={<Drives />} />
@@ -73,15 +74,17 @@ function App() {
 
             <Route path="managemockrating" element={<ManageMockRating />} />
 
+            <Route index element={<ManageDrives />} />
             <Route path="managedrives" element={<ManageDrives />} />
             <Route path="managedrives/adddrive" element={<AddDrive />} />
             <Route path="managedrives/updatedrive/:id" element={<AddDrive />} />
+            <Route path="notifications" element={<Notifications />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
+      <ToastContainer position="top-right" autoClose={2000} theme="colored" />
     </>
   );
 }

@@ -46,6 +46,7 @@ const ManageStudents = () => {
     try {
       const response = await axiosInstance.get("/api/admin/managestudents");
       setStudents(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
       toast.error("Unable to load students");
@@ -244,9 +245,11 @@ const ManageStudents = () => {
                   </td>
 
                   <td>{student.email}</td>
-                  <td>{student.branch || "-"}</td>
-                  <td>{student.cgpa ?? "-"}</td>
-                  <td>{student.graduationYear ?? "-"}</td>
+                  <td>{student.studentAcademicDetails.branch || "-"}</td>
+                  <td>{student.studentAcademicDetails.cgpa ?? "-"}</td>
+                  <td>
+                    {student.studentAcademicDetails.graduationYear ?? "-"}
+                  </td>
 
                   <td>
                     <span
@@ -318,18 +321,45 @@ const ManageStudents = () => {
 
               <div className={style.detailsGrid}>
                 <div>
+                  <span>Student Id</span>
+                  <strong>{selectedStudent.studentId || "-"}</strong>
+                </div>
+                <div>
+                  <span>Phone</span>
+                  <strong>{selectedStudent.phone || "-"}</strong>
+                </div>
+                <div>
+                  <span>Course</span>
+                  <strong>
+                    {selectedStudent.studentAcademicDetails.course || "-"}
+                  </strong>
+                </div>
+                <div>
                   <span>Branch</span>
-                  <strong>{selectedStudent.branch || "-"}</strong>
+                  <strong>
+                    {selectedStudent.studentAcademicDetails.branch || "-"}
+                  </strong>
                 </div>
 
                 <div>
                   <span>CGPA</span>
-                  <strong>{selectedStudent.cgpa ?? "-"}</strong>
+                  <strong>
+                    {selectedStudent.studentAcademicDetails.cgpa ?? "-"}
+                  </strong>
                 </div>
 
                 <div>
                   <span>Graduation Year</span>
-                  <strong>{selectedStudent.graduationYear ?? "-"}</strong>
+                  <strong>
+                    {selectedStudent.studentAcademicDetails.graduationYear ??
+                      "-"}
+                  </strong>
+                </div>
+                <div>
+                  <span>Backlogs</span>
+                  <strong>
+                    {selectedStudent.studentAcademicDetails.backlogs ?? "-"}
+                  </strong>
                 </div>
 
                 <div>

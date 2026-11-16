@@ -1,0 +1,154 @@
+.driveContainer {
+  padding: 30px;
+  background: #f7f8fc;
+  min-height: 100vh;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.backBtn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #263b80;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.backBtn:hover {
+  background: #192b65;
+}
+
+.driveId {
+  color: #555;
+  font-weight: 600;
+}
+
+.driveCard {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+}
+
+.companyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.companyHeader h2 {
+  margin: 0 0 8px;
+  color: #263b80;
+  font-size: 26px;
+}
+
+.companyHeader p {
+  margin: 0;
+  color: #666;
+  font-size: 17px;
+}
+
+.salary {
+  background: #e9f8ef;
+  color: #168044;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  padding: 25px 0;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailItem span {
+  color: #777;
+  font-size: 13px;
+}
+
+.detailItem strong {
+  color: #252525;
+  font-size: 15px;
+}
+
+.section {
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+}
+
+.section h3 {
+  margin: 0 0 14px;
+  color: #263b80;
+  font-size: 18px;
+}
+
+.section p {
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.branchList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.branchList span {
+  background: #edf1ff;
+  color: #263b80;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.message {
+  padding: 40px;
+  text-align: center;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .driveContainer {
+    padding: 15px;
+  }
+
+  .driveCard {
+    padding: 20px;
+  }
+
+  .detailsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .companyHeader {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}

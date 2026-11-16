@@ -16,7 +16,7 @@ function Navbar({ role }) {
 
   const notificationPath =
     role === "admin"
-      ? "/admin/notifications"
+      ? "/admin/dashboard/notifications"
       : "/student/dashboard/notifications";
 
   const profilePath =

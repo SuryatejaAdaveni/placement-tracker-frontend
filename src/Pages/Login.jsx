@@ -37,20 +37,21 @@ const Login = () => {
       sessionStorage.setItem("email", user.email);
       sessionStorage.setItem("role", user.role);
       toast.success("Login Successfull!");
-      if (user.role === "ADMIN") {
-        navigate("/admin/dashboard");
-      } else if (user.role === "STUDENT") {
-        navigate("/student/dashboard");
-      } else {
-        setMessage("Invalid user role");
-        sessionStorage.clear();
-      }
+      navigate("/");
+      // if (user.role === "ADMIN") {
+      //   navigate("/admin/dashboard");
+      // } else if (user.role === "STUDENT") {
+      //   navigate("/student/dashboard");
+      // } else {
+      //   setMessage("Invalid user role");
+      //   sessionStorage.clear();
+      // }
     } catch (error) {
       console.error("Login error:", error);
 
-      setMessage(error.response?.data || "Invalid email or password");
+      setMessage(error.response?.data);
 
-      toast.error("Login failed");
+      toast.error(error.response?.data);
     } finally {
       setLoading(false);
     }

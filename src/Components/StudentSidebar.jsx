@@ -24,11 +24,6 @@ function StudentSidebar() {
       path: "/student/dashboard/notifications",
       icon: "🔔",
     },
-    {
-      name: "Reports & Analytics",
-      path: "/student/dashboard/reports",
-      icon: "📈",
-    },
   ];
 
   return (

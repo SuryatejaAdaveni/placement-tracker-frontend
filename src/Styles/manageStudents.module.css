@@ -293,7 +293,7 @@
 
 .modal {
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   background: white;
   border-radius: 12px;
   padding: 25px;
@@ -350,13 +350,16 @@
   color: #777;
   font-size: 13px;
 }
-
 .detailsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
   margin-top: 25px;
+}
+
+.detailsGrid > div {
+  flex: 1 1 calc((100% - 48px) / 3);
+  min-width: 0;
 }
 
 .detailsGrid div {
