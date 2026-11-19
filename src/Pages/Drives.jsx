@@ -25,7 +25,7 @@ const StudentDrives = () => {
 
   const fetchDrives = async () => {
     try {
-      const response = await axiosInstance.get("/api/drives");
+      const response = await axiosInstance.get("/api/students/drives");
 
       const data = response.data;
 

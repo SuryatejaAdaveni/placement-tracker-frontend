@@ -81,11 +81,24 @@ const Notifications = () => {
 
   const handleRemoveNotification = async (id) => {
     try {
-      await axiosInstance.delete(`/api/admin/notifications/delete/${id}`);
-      toast.success("Notification Removed Successfully..");
-      fetchNotifications();
+      const role = sessionStorage.getItem("role");
+
+      const endpoint =
+        role === "ADMIN"
+          ? `/api/admin/notifications/delete/${id}`
+          : `/api/student/notifications/delete/${id}`;
+
+      await axiosInstance.delete(endpoint);
+
+      toast.success("Notification deleted successfully");
+
+      setNotifications((prev) =>
+        prev.filter((notification) => notification.id !== id),
+      );
     } catch (error) {
-      toast.error("Error while Removing the Notification.");
+      console.error("Delete notification error:", error);
+      console.error("Response:", error.response?.data);
+      toast.error("Failed to delete notification");
     }
   };
 

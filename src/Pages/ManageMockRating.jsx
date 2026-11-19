@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../Styles/managemockrating.module.css";
 import axiosInstance from "../Api/axiosInstance";
@@ -44,8 +43,18 @@ const ManageMockRating = () => {
     e.preventDefault();
 
     try {
+      if (!technology.trim() || rating === "") {
+        toast.error("Please enter technology and rating");
+        return;
+      }
+
+      if (Number(rating) < 0 || Number(rating) > 10) {
+        toast.error("Rating must be between 0 and 10");
+        return;
+      }
+
       if (selectedMock) {
-        await axiosInstance.put(`/api/mockrating/student/${selectedMock.id}`, {
+        await axiosInstance.put(`/api/mockrating/${selectedMock.id}`, {
           technology,
           rating: Number(rating),
         });
@@ -76,6 +85,7 @@ const ManageMockRating = () => {
       );
     }
   };
+
   const handleUpdateMockRating = (student, mock) => {
     setSelectedStudent(student);
     setSelectedMock(mock);
@@ -134,8 +144,7 @@ const ManageMockRating = () => {
             <p>There are No students Matching your search or filters</p>
           </div>
         ) : (
-          filteredStudents.map((student) => 
-            (
+          filteredStudents.map((student) => (
             <div className={style.card} key={student.studentId}>
               <div className={style.studentInfoAndAddMock}>
                 <div className={style.studentInfo}>

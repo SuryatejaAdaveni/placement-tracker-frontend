@@ -34,6 +34,13 @@
   transition: 0.3s ease;
 }
 
+.sidebarLink p {
+  height: 15px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
 .sidebarLink:hover {
   background: rgba(255, 255, 255, 0.12);
 }

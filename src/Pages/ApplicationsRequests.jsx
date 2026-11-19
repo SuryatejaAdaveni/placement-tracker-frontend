@@ -129,11 +129,17 @@ const ApplicationsRequests = () => {
         ),
       );
 
-      toast.success("Application status updated successfully");
+      setStatusDrafts((prev) => ({
+        ...prev,
+        [application.applicationId]: {
+          applicationStatus: response.data.applicationStatus,
+          forwardingStatus: response.data.forwardingStatus,
+        },
+      }));
 
-      if (selectedApplication?.applicationId === application.applicationId) {
-        setSelectedApplication(response.data);
-      }
+      setSelectedApplication(response.data);
+
+      toast.success("Application status updated successfully");
     } catch (error) {
       console.error(error);
       toast.error(
@@ -142,7 +148,6 @@ const ApplicationsRequests = () => {
     }
   };
 
-  // Quick approve
   const handleApprove = async (application) => {
     try {
       const response = await axiosInstance.put(
@@ -150,8 +155,8 @@ const ApplicationsRequests = () => {
         null,
         {
           params: {
-            forwardingStatus: application.applicationStatus,
             applicationStatus: "APPROVED",
+            forwardingStatus: application.forwardingStatus,
           },
         },
       );
@@ -163,14 +168,6 @@ const ApplicationsRequests = () => {
             : item,
         ),
       );
-
-      setStatusDrafts((prev) => ({
-        ...prev,
-        [application.applicationId]: {
-          ...prev[application.applicationId],
-          applicationStatus: "APPROVED",
-        },
-      }));
 
       toast.success("Application approved successfully");
     } catch (error) {
@@ -179,7 +176,6 @@ const ApplicationsRequests = () => {
     }
   };
 
-  // Quick reject
   const handleReject = async (application) => {
     try {
       const response = await axiosInstance.put(
@@ -187,8 +183,8 @@ const ApplicationsRequests = () => {
         null,
         {
           params: {
-            forwardingStatus: application.forwardingStatus,
             applicationStatus: "REJECTED",
+            forwardingStatus: "REJECTED",
           },
         },
       );
@@ -204,8 +200,8 @@ const ApplicationsRequests = () => {
       setStatusDrafts((prev) => ({
         ...prev,
         [application.applicationId]: {
-          ...prev[application.applicationId],
           applicationStatus: "REJECTED",
+          forwardingStatus: "REJECTED",
         },
       }));
 

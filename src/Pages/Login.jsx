@@ -36,6 +36,7 @@ const Login = () => {
       sessionStorage.setItem("name", user.name);
       sessionStorage.setItem("email", user.email);
       sessionStorage.setItem("role", user.role);
+      sessionStorage.setItem("token", user.token);
       toast.success("Login Successfull!");
       navigate("/");
       // if (user.role === "ADMIN") {
